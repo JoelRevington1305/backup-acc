@@ -16,17 +16,17 @@ export const dataManagementClient = new DataManagementClient(sdkManager);
 
 const getAuthorizationUrl = () => {
   return authenticationClient.authorize(
-    process.env.NEXT_APP_APS_CLIENT_ID,
+    process.env.NEXT_PUBLIC_APS_CLIENT_ID,
     ResponseType.Code,
-    process.env.NEXT_APP_APS_CALLBACK_URL,
+    process.env.NEXT_PUBLIC_APS_CALLBACK_URL,
     [Scopes.DataRead, Scopes.DataCreate, Scopes.ViewablesRead]
   );
 };
 
 export const getAccessToken = async (code) => {
   try {
-    const clientId = process.env.NEXT_APP_APS_CLIENT_ID;
-    const clientSecret = process.env.NEXT_APP_APS_CLIENT_SECRET;
+    const clientId = process.env.NEXT_PUBLIC_APS_CLIENT_ID;
+    const clientSecret = process.env.NEXT_PUBLIC_APS_CLIENT_SECRET;
     const authHeader = Buffer.from(`${clientId}:${clientSecret}`).toString(
       "base64"
     );
@@ -35,7 +35,7 @@ export const getAccessToken = async (code) => {
       new URLSearchParams({
         grant_type: "authorization_code",
         code: code,
-        redirect_uri: process.env.NEXT_APP_APS_CALLBACK_URL,
+        redirect_uri: process.env.NEXT_PUBLIC_APS_CALLBACK_URL,
       }),
       {
         headers: {
